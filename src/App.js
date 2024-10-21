@@ -7,7 +7,7 @@ function App() {
   console.log(taskList)
   return (
 <>
-  <h1 className="text-2xl font-bold py-4 pl-6">Task Tracker</h1>
+  <h1 className="text-2xl font-bold py-4 pl-6">Elona's Task Tracker</h1>
   <div className="flex flex-row items-center">
   <p className="text-xl pl-6">Click</p>
     <AddTask taskList={taskList} setTaskList={setTaskList}/>
