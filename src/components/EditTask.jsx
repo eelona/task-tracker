@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const EditTask = ({ task, index, taskList, setTaskList }) => {
+
   const [editModal, setEditModal] = useState(false);
-  const [projectName, setProjectName] = useState(task.projectName || "");
-  const [taskDescription, setTaskDescription] = useState(task.taskDescription || "");
+  const [projectName, setProjectName] = useState("");
+  const [taskDescription, setTaskDescription] = useState("");
+
+  useEffect(() => {
+    setProjectName(task.projectName)
+    setTaskDescription(task.taskDescription)
+  }, [])
 
   const handleInput = (e) => {
     const { name, value } = e.target;
@@ -14,14 +20,15 @@ const EditTask = ({ task, index, taskList, setTaskList }) => {
 
   const handleUpdate = (e) => {
     e.preventDefault();
+    let taskIndex = taskList.indexOf(task)
+    taskList.splice(taskIndex, 1);
     const updatedTasks = [...taskList];
     updatedTasks[index] = { projectName, taskDescription };
 
     setTaskList(updatedTasks);
 
     setEditModal(false);
-    setProjectName("");
-    setTaskDescription("");
+   
   };
 
   return (
@@ -89,7 +96,7 @@ const EditTask = ({ task, index, taskList, setTaskList }) => {
                   className="bg-blue-500 text-white font-semibold uppercase text-sm px-4 py-2 rounded hover:opacity-80"
                   type="submit"
                 >
-                  Edit Task
+                  Update Task
                 </button>
               </div>
             </form>

@@ -5,15 +5,26 @@ const AddTask = ({taskList, setTaskList}) => {
   const [projectName, setProjectName] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
 
+  const [errorMessage, setErrorMessage] = useState("")
+
   const handleInput= e => {
       const {name, value} = e.target;
 
-      if(name === "projectName") setProjectName(value)
+      if(name === "projectName") {
+        setProjectName(value)
+        setErrorMessage("")
+      }
+        if(name === "projectName" && value === "") {
+          setErrorMessage("Enter project name to continue");
+        }
         if(name ==="taskDescription") setTaskDescription(value)
   }
 
   const handleAdd = e => {
     e.preventDefault();
+    if(!projectName){
+      setErrorMessage("Enter project name to continue")
+    }
     setTaskList(
       [...taskList, {projectName, taskDescription}] 
     )
@@ -64,8 +75,8 @@ const AddTask = ({taskList, setTaskList}) => {
                   onChange={handleInput}
                   required
                 />
+                  <p className="text-red-500 text-center mt-2 mb-2">{errorMessage}</p>
               </div>
-
               <div className="mb-4">
                 <label
                   className="block text-gray-700 text-sm font-semibold mb-2"
