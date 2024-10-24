@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
 
 const EditTask = ({ task, index, taskList, setTaskList }) => {
-
   const [editModal, setEditModal] = useState(false);
   const [projectName, setProjectName] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
 
   useEffect(() => {
-    setProjectName(task.projectName)
-    setTaskDescription(task.taskDescription)
-  }, [])
+    setProjectName(task.projectName);
+    setTaskDescription(task.taskDescription);
+  }, []);
 
   const handleInput = (e) => {
     const { name, value } = e.target;
@@ -20,20 +19,26 @@ const EditTask = ({ task, index, taskList, setTaskList }) => {
 
   const handleUpdate = (e) => {
     e.preventDefault();
-    let taskIndex = taskList.indexOf(task)
-    taskList.splice(taskIndex, 1);
-    const updatedTasks = [...taskList];
-    updatedTasks[index] = { projectName, taskDescription };
+    const updatedTask = {
+      ...task,
+      projectName: projectName,
+      taskDescription: taskDescription,
+    };
 
-    setTaskList(updatedTasks);
+    let updatedTaskList = [...taskList];
+    
+    updatedTaskList.splice(index, 1);
+    
+    updatedTaskList.unshift(updatedTask);
 
+    setTaskList(updatedTaskList);
+    localStorage.setItem("taskList", JSON.stringify(updatedTaskList));
     setEditModal(false);
-   
   };
 
   return (
     <>
-      <button 
+      <button
         className="bg-gray-400 text-white text-sm-uppercase font-semibold py-1.5 px-3 rounded-lg"
         onClick={() => setEditModal(true)}
       >
