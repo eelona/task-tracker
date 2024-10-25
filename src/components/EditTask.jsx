@@ -23,6 +23,8 @@ const EditTask = ({ task, index, taskList, setTaskList }) => {
       ...task,
       projectName: projectName,
       taskDescription: taskDescription,
+      timestamp: task.timestamp,
+      duration: task.duration
     };
 
     let updatedTaskList = [...taskList];
@@ -33,13 +35,14 @@ const EditTask = ({ task, index, taskList, setTaskList }) => {
 
     setTaskList(updatedTaskList);
     localStorage.setItem("taskList", JSON.stringify(updatedTaskList));
+    window.location.reload();
     setEditModal(false);
   };
 
   return (
     <>
       <button
-        className="bg-gray-400 text-white text-sm-uppercase font-semibold py-1.5 px-3 rounded-lg"
+        className="bg-pink-400 text-white text-sm-uppercase font-semibold py-1.5 px-3 rounded-lg"
         onClick={() => setEditModal(true)}
       >
         Edit
@@ -47,7 +50,7 @@ const EditTask = ({ task, index, taskList, setTaskList }) => {
 
       {editModal ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto">
-          <div className="w-full max-w-md bg-white border rounded-lg shadow-lg p-6 relative">
+          <div className="w-full max-w-md bg-pink border rounded-lg shadow-lg p-6 relative">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-xl font-semibold">Edit Task</h3>
               <button
@@ -98,7 +101,7 @@ const EditTask = ({ task, index, taskList, setTaskList }) => {
 
               <div className="flex justify-end">
                 <button
-                  className="bg-blue-500 text-white font-semibold uppercase text-sm px-4 py-2 rounded hover:opacity-80"
+                  className="bg-pink-500 text-white font-semibold uppercase text-sm px-4 py-2 rounded hover:opacity-80"
                   type="submit"
                 >
                   Update Task
